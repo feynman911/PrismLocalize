@@ -1,0 +1,2 @@
+# PrismLocalize
+WPF Localization
