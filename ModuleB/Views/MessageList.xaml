@@ -1,8 +1,9 @@
-﻿<UserControl x:Class="ModuleB.Views.MessageList"
+﻿<UserControl
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:prism="http://prismlibrary.com/"             
-             prism:ViewModelLocator.AutoWireViewModel="True" Padding="25">
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:ViewModels="clr-namespace:ModuleB.ViewModels" mc:Ignorable="d" x:Class="ModuleB.Views.MessageList"             
+             prism:ViewModelLocator.AutoWireViewModel="True" Padding="25" d:DataContext="{d:DesignInstance {x:Type ViewModels:MessageListViewModel}}" d:DesignWidth="157" d:DesignHeight="115.5">
     <Grid>
         <ListBox ItemsSource="{Binding Messages}" />
     </Grid>

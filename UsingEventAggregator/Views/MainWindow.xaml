@@ -3,29 +3,35 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:prism="http://prismlibrary.com/"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:lex="http://wpflocalizeextension.codeplex.com" 
+        xmlns:ViewModels="clr-namespace:UsingEventAggregator.ViewModels" 
         mc:Ignorable="d" 
         x:Class="UsingEventAggregator.Views.MainWindow"
-        prism:ViewModelLocator.AutoWireViewModel="True"
-        xmlns:lex="http://wpflocalizeextension.codeplex.com" 
+        prism:ViewModelLocator.AutoWireViewModel="True" 
         lex:LocalizeDictionary.DesignCulture="en-US"    
         lex:ResxLocalizationProvider.DefaultAssembly="UsingEventAggregator"    
         lex:ResxLocalizationProvider.DefaultDictionary="Resources"
-        Title="{lex:Loc TITLE}" Height="350" Width="500" MinWidth="500" MinHeight="350">
+        Title="{lex:Loc TITLE}" Height="350" Width="500" MinWidth="500" MinHeight="350" d:DataContext="{d:DesignInstance {x:Type ViewModels:MainWindowViewModel}}" ResizeMode="NoResize">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition />
+            <ColumnDefinition Width="101*" />
+            <ColumnDefinition Width="63*" />
         </Grid.ColumnDefinitions>
-        <Grid Margin="0,0,0,140" Background="#FFFFE5E5">
-            <ContentControl prism:RegionManager.RegionName="LeftRegion" />
+        <Grid Margin="0,0,0,208" Background="#FFFFE5E5">
+            <ContentControl prism:RegionManager.RegionName="LeftRegion" VerticalAlignment="Top" />
             <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="LeftRegion" VerticalAlignment="Top" Margin="10,0,0,0"/>
         </Grid>
         <Grid Grid.Column="1" Background="#FFE2FFDC">
             <ContentControl prism:RegionManager.RegionName="RightRegion" />
             <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="RightRegion" VerticalAlignment="Top" Margin="10,0,0,0"/>
         </Grid>
-        <ComboBox ItemsSource="{Binding MergedAvailableCultures, Source={x:Static lex:LocalizeDictionary.Instance}}"
-   SelectedItem="{Binding Culture, Source={x:Static lex:LocalizeDictionary.Instance}}" DisplayMemberPath="NativeName" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="50,0,0,100" />
+        <Grid Margin="10,115,10,0" VerticalAlignment="Top" Height="138">
+            <ComboBox ItemsSource="{Binding MergedAvailableCultures, Source={x:Static lex:LocalizeDictionary.Instance}}"
+                SelectedItem="{Binding Culture, Source={x:Static lex:LocalizeDictionary.Instance}}" DisplayMemberPath="NativeName" VerticalAlignment="Bottom" Margin="0" />
+            <ListBox Height="64" VerticalAlignment="Top" Margin="0,20,0,0" ItemsSource="{Binding CultureInfos}"/>
+            <TextBlock Margin="0" TextWrapping="Wrap" Text="LocalizeDictionary.Instance.MergedAvailableCultures" VerticalAlignment="Top"/>
+            <TextBlock HorizontalAlignment="Left" Margin="0,95,0,0" TextWrapping="Wrap" Text="XAMLのみで言語切り替え" VerticalAlignment="Top" Width="226"/>
+        </Grid>
     </Grid>
 </Window>

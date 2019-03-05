@@ -7,6 +7,8 @@ namespace ModuleB.ViewModels
 {
     public class MessageListViewModel : BindableBase
     {
+        public MessageListViewModel() { }
+
         IEventAggregator _ea;
 
         private ObservableCollection<string> _messages;

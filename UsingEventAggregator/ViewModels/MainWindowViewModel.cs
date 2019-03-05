@@ -4,11 +4,13 @@ using WPFLocalizeExtension.Extensions;
 
 using System.Globalization;
 using System.Reflection;
+using System.Collections.ObjectModel;
 
 namespace UsingEventAggregator.ViewModels
 {
     public class MainWindowViewModel : BindableBase
     {
+
         private string _title = "Prism Unity Application";
         public string Title
         {
@@ -19,16 +21,30 @@ namespace UsingEventAggregator.ViewModels
         public MainWindowViewModel()
         {
             LocalizeDictionary.Instance.SetCurrentThreadCulture = true;
-            LocalizeDictionary.Instance.Culture = new CultureInfo("en-US");
+            //OSの言語設定を使用
+            LocalizeDictionary.Instance.Culture = new CultureInfo(CultureInfo.CurrentCulture.Name);
+            //en-USに変更する時
+            //LocalizeDictionary.Instance.Culture = new CultureInfo("en-US");
+            CultureInfos = LocalizeDictionary.Instance.MergedAvailableCultures;
         }
+
+        private ObservableCollection<CultureInfo> cultureInfos;
+        public ObservableCollection<CultureInfo> CultureInfos
+        {
+            get { return cultureInfos; }
+            set { SetProperty(ref cultureInfos, value); }
+        }
+
+        public static class LocalizationProvider
+        {
+            public static T GetLocalizedValue<T>(string key)
+            {
+                return LocExtension.GetLocalizedValue<T>
+                    (Assembly.GetCallingAssembly().GetName().Name + ":Resources:" + key);
+            }
+        }
+
     }
 
-    public static class LocalizationProvider
-    {
-        public static T GetLocalizedValue<T>(string key)
-        {
-            return LocExtension.GetLocalizedValue<T>
-                (Assembly.GetCallingAssembly().GetName().Name + ":Resources:" + key);
-        }
-    }
+
 }

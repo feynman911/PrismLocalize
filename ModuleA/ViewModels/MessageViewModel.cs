@@ -9,6 +9,8 @@ namespace ModuleA.ViewModels
 {
     public class MessageViewModel : BindableBase
     {
+        public MessageViewModel() { }
+
         //Module間でデータをやり取りするためのイベントアグリゲータ
         IEventAggregator _ea;
 
@@ -35,15 +37,18 @@ namespace ModuleA.ViewModels
 
 
         }
+
+        //Resourcesから値を取り出すスタティッククラス
+        public static class LocalizationProvider
+        {
+            public static T GetLocalizedValue<T>(string key)
+            {
+                return LocExtension.GetLocalizedValue<T>
+                    (Assembly.GetCallingAssembly().GetName().Name + ":Resources:" + key);
+            }
+        }
+
     }
 
-    //Resourcesから値を取り出すスタティッククラス
-    public static class LocalizationProvider
-    {
-        public static T GetLocalizedValue<T>(string key)
-        {
-            return LocExtension.GetLocalizedValue<T>
-                (Assembly.GetCallingAssembly().GetName().Name + ":Resources:" + key);
-        }
-    }
+
 }
