@@ -35,13 +35,10 @@ namespace UsingEventAggregator.ViewModels
             set { SetProperty(ref cultureInfos, value); }
         }
 
-        public static class LocalizationProvider
+        public T GetLocalizedValue<T>(string key)
         {
-            public static T GetLocalizedValue<T>(string key)
-            {
-                return LocExtension.GetLocalizedValue<T>
-                    (Assembly.GetCallingAssembly().GetName().Name + ":Resources:" + key);
-            }
+            return LocExtension.GetLocalizedValue<T>
+                (Assembly.GetCallingAssembly().GetName().Name + ":Resources:" + key);
         }
 
     }
